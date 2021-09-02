@@ -128,6 +128,11 @@ BUILDER_OPTS = {
     default=False,
     help="[pdflatex] Enable build of PDF files for each individual page",
 )
+@click.option(
+    "--parallel-sphinx-jobs",
+    default=None,
+    help="number of sphinx jobs to use",
+)
 def build(
     path_source,
     path_output,
@@ -142,6 +147,7 @@ def build(
     verbose,
     quiet,
     individualpages,
+    parallel_sphinx_jobs,
     get_config_only=False,
 ):
     """Convert your book's or page's content to HTML or a PDF."""
@@ -299,6 +305,7 @@ def build(
         verbosity=verbose,
         quiet=quiet > 0,
         really_quiet=quiet > 1,
+        jobs=parallel_sphinx_jobs
     )
 
     builder_specific_actions(
